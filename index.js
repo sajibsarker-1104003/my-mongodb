@@ -86,9 +86,11 @@ const Student=mongoose.model('Student',studentSchema);//class
     const data=await student.save();
     console.log(data);
   }
-  catch(err){
-    console.log(err.message);
-  }
+  catch (err) {
+    for (field in err.errors) {
+        console.log(err.errors[field].message);
+    }
+}
  
  }
 
