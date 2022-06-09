@@ -98,10 +98,33 @@ const Student=mongoose.model('Student',studentSchema);//class
 
 async function readStudent(){
 const studentData=await Student.find().limit(5).sort({firstName:1}).select({firstName:1,lastName
-:1,hobbies:1});
+:1,hobbies:1}).countDocuments();
 console.log(studentData);
 }
 
-readStudent();
+//readStudent();
+
+// u=>Update Operation
+
+async function updateStudent(id){
+const student=await Student.updateOne({_id:id},{
+  $set:{passed:false}
+});
+console.log(student);
+}
+
+//updateStudent('62a23fae3d5054d99313cfd0');
+
+// d=>Delete operation
+
+async function deleteStudent(id){
+ const student=await Student.deleteOne({
+  _id:id
+});
+console.log(student);
+}
+
+deleteStudent("62a23f7f4a8bf675548137ab");
+
 
 
