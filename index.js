@@ -12,7 +12,7 @@ mongoose.connect('mongodb://localhost:27017/my-students',)
 
 const studentSchema=new mongoose.Schema({
   firstName:String,
-  lastName:String,
+  lastName:{type:String,required:[true,"Please insert LastName"]},
   dob:{
     type:Date,
     validate:{
@@ -53,7 +53,7 @@ const Student=mongoose.model('Student',studentSchema);//class
   const student=new Student({
     firstName:"Santo",
     //lastName:"Sarker",
-    dob:new Date("04 January 1992"),
+    dob:new Date("04 January 1997"),
     passed:true,
     hobbies:[],
     parents:{
@@ -87,12 +87,12 @@ const Student=mongoose.model('Student',studentSchema);//class
     console.log(data);
   }
   catch(err){
-    console.log(err._message);
+    console.log(err.message);
   }
  
  }
 
-// createStudent();
+ createStudent();
 
 //r=>Read operation
 
@@ -124,7 +124,7 @@ async function deleteStudent(id){
 console.log(student);
 }
 
-deleteStudent("62a23f7f4a8bf675548137ab");
+//deleteStudent("62a23f7f4a8bf675548137ab");
 
 
 
