@@ -13,10 +13,23 @@ mongoose.connect('mongodb://localhost:27017/my-students',)
 const studentSchema=new mongoose.Schema({
   firstName:String,
   lastName:String,
-  dob:Date,
+  dob:{
+    type:Date,
+    validate:{
+      validator:(value)=>value>new Date("1 January 1995"),
+      message:"Date must be after 1 January 1995"
+    }
+  },
   entryDate:{type:Date,default:Date.now},
   passed:Boolean,
-  hobbies:[String],
+  hobbies:{
+    type:Array,
+    of:String,
+    validate:{
+      validator:(value)=>value.length>0,
+      message:"There must be at least 1 hobby"
+    }
+  },
   parents:{
     father:String,
     mother:String,
@@ -38,7 +51,7 @@ const student=new Student({
   lastName:"Sarker",
   dob:new Date("04 January 1997"),
   passed:true,
-  hobbies:["Travelling","Coding","Drawing"],
+  hobbies:[],
   parents:{
     father:"Sankar Sarker",
     mother:"Uma Sarker"
