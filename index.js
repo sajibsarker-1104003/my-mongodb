@@ -46,37 +46,62 @@ const studentSchema=new mongoose.Schema({
 // Mongoose Model
 
 const Student=mongoose.model('Student',studentSchema);//class
-const student=new Student({
-  firstName:"Sajib",
-  lastName:"Sarker",
-  dob:new Date("04 January 1997"),
-  passed:true,
-  hobbies:[],
-  parents:{
-    father:"Sankar Sarker",
-    mother:"Uma Sarker"
-  },
-  subjects:[{
-    name:"Data Structure",
-    subjectCode:301,
-    marks:85
-  },
-  {
-    name:"Algorithm",
-    subjectCode:302,
-    marks:90
-  },
-  {
-    name:"AI",
-    subjectCode:303,
-    marks:76
-  },
-  {
-    name:"Machine Learning",
-    subjectCode:304,
-    marks:83
-  }]
-});//Object create
 
-student.save().then(data=>console.log(data)).catch(err=>console.log(err._message));
+
+//c=>Create operation
+ async function createStudent(){
+  const student=new Student({
+    firstName:"Santo",
+    //lastName:"Sarker",
+    dob:new Date("04 January 1992"),
+    passed:true,
+    hobbies:[],
+    parents:{
+      father:"Sankar Sarker",
+      mother:"Uma Sarker"
+    },
+    subjects:[{
+      name:"Data Structure",
+      subjectCode:301,
+      marks:85
+    },
+    {
+      name:"Algorithm",
+      subjectCode:302,
+      marks:90
+    },
+    {
+      name:"AI",
+      subjectCode:303,
+      marks:76
+    },
+    {
+      name:"Machine Learning",
+      subjectCode:304,
+      marks:83
+    }]
+  });//Object create
+  
+  try{
+    const data=await student.save();
+    console.log(data);
+  }
+  catch(err){
+    console.log(err._message);
+  }
+ 
+ }
+
+// createStudent();
+
+//r=>Read operation
+
+async function readStudent(){
+const studentData=await Student.find().limit(5).sort({firstName:1}).select({firstName:1,lastName
+:1,hobbies:1});
+console.log(studentData);
+}
+
+readStudent();
+
 
